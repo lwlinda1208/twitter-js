@@ -5,6 +5,9 @@ const tweetBank = require('./tweetBank');
 const routes = require('./routes');
 
 
+app.set('view engine', 'html');
+app.engine('html', nunjucks.render);
+nunjucks.configure('views', {noCache: true});
 
 app.use('/', function(req, res, next){
 	console.log(req.method + " " + req.originalUrl);
@@ -18,16 +21,14 @@ var server = app.listen("3000", function(){
 });
 
 
-var locals = {
-	title : 'An Example',
-	people : [ {name: 'Allie'},
-			{name: 'Jackie'}]
-}
+// var locals = {
+// 	title : 'An Example',
+// 	people : [ {name: 'Allie'},
+// 			{name: 'Jackie'}]
+// }
 
-const people = [{name: 'Allie'}, {name: 'Jackie'}];
+// const people = [{name: 'Allie'}, {name: 'Jackie'}];
 
-app.set('view engine', 'html');
-app.engine('html', nunjucks.render);
 //res.render('index', {title: 'Pair Programming Budz', people: people});
 
 // app.get('/views/index.html', function(req, res, next) {
