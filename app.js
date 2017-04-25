@@ -3,16 +3,19 @@ const nunjucks = require('nunjucks');
 const app = express();
 const tweetBank = require('./tweetBank');
 const routes = require('./routes');
+var bodyParser = require('body-parser');
+const morgan = require('morgan');
 
-
-app.set('view engine', 'html');
+app.set('view engine', 'html');	//extension of the template
 app.engine('html', nunjucks.render);
 nunjucks.configure('views', {noCache: true});
 
-app.use('/', function(req, res, next){
-	console.log(req.method + " " + req.originalUrl);
-	next();
-});
+app.use(morgan('dev'));
+
+app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 app.use('/', routes);
 

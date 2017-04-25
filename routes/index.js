@@ -1,9 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const router = express.Router();
 // could use one line instead: const router = require('express').Router();
 const tweetBank = require('../tweetBank');
-var urlencodedParser = bodyParser.urlencoded({extended: false});
 
 
 router.get('/', function (req, res, next) {
@@ -23,13 +21,13 @@ router.get('/tweets/:id', function(req, res, next){
 	res.render( 'index', { tweets: tweets } );
 })
 
-router.post('/tweets', urlencodedParser, function(req, res, next){
+router.post('/tweets', function(req, res, next){
 	var name = req.body.name;
 	var text = req.body.text;
 	tweetBank.add(name, text);
 	res.redirect('/');
 })
 
-router.use(express.static('public'));
+
 
 module.exports = router;
